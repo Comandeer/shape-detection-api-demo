@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Shape Detection API demo</title>
+</head>
+<body>
+	<h1>Shape Detection API</h1>
+
+	<h2>Face Detection</h2>
+	<label>Choose image file: <input type="file" accept="image/*" data-type="face"></label>
+
+	<h2>Barcode Detection</h2>
+	<label>Choose image file: <input type="file" accept="image/*" data-type="barcode"></label>
+
+	<h2>Text Detection</h2>
+	<label>Choose image file: <input type="file" accept="image/*" data-type="text"></label>
+	<script>
+		const detector = new TextDetector();
+	</script>
+	<script type="module">
+		import detectShape from './detector.mjs';
+
+		document.body.addEventListener( 'change', async ( { target } ) => {
+			const [ image ] = target.files;
+
+			const detected = await detectShape( image, target.dataset.type );
+
+			console.log( detected );
+		} );
+	</script>
+</body>
+</html>
